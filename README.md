@@ -11,7 +11,7 @@ npm install --save sjson
 ## Usage
 
 `sample.sjson`
-```json
+```
 // About
 //
 name = "Sample"
