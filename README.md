@@ -1,11 +1,11 @@
-# SJSON Parser
+# Simplified JSON Parser
 
 A parser that converts [SJSON](http://help.autodesk.com/view/Stingray/ENU/?guid=__stingray_help_managing_content_sjson_html) into JSON.
 
 ## Installation
 
 ```bash
-npm install --save sjson
+npm install --save simplified-json
 ```
 
 ## Usage
@@ -56,7 +56,7 @@ dependencies = {
 ```
 
 ``` javascript
-var sjsonParse = require("sjson"),
+var sjsonParse = require("simplified-json"),
   fs = require('fs');
   
 fs.readFile('sample.sjson', 'utf8', function (err, data) {
