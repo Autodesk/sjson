@@ -1,12 +1,12 @@
 {
-  "name": "sjson",
+  "name": "simplified-json",
   "version": "0.1.0",
   "description": "A parser that converts SJSON into JSON",
   "license": "Apache-2.0",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AutodeskGames/sjson.git"
+    "url": "git+https://github.com/Autodesk/sjson.git"
   },
   "keywords": [
     "sjson",
@@ -14,9 +14,9 @@
     "parser"
   ],
   "bugs": {
-    "url": "https://github.com/AutodeskGames/sjson/issues"
+    "url": "https://github.com/Autodesk/sjson/issues"
   },
-  "homepage": "https://github.com/AutodeskGames/sjson#readme",
+  "homepage": "https://github.com/Autodesk/sjson#readme",
   "engines": {
     "node": ">=4"
   }
