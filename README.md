@@ -1,4 +1,4 @@
-# theo loader for webpack
+# SJSON Parser
 
 A parser that converts [SJSON](http://help.autodesk.com/view/Stingray/ENU/?guid=__stingray_help_managing_content_sjson_html) into JSON.
 
