@@ -56,7 +56,7 @@ dependencies = {
 ```
 
 ``` javascript
-var sjsonParse = require("simplified-json"),
+var sjsonParse = require('simplified-json'),
   fs = require('fs');
   
 fs.readFile('sample.sjson', 'utf8', function (err, data) {
