@@ -4,6 +4,9 @@
   "description": "A parser that converts SJSON into JSON",
   "license": "Apache-2.0",
   "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Autodesk/sjson.git"
@@ -19,5 +22,9 @@
   "homepage": "https://github.com/Autodesk/sjson#readme",
   "engines": {
     "node": ">=4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2"
   }
 }
