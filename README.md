@@ -1,6 +1,8 @@
-# Simplified JSON Parser
+# Simplified JSON Parser 
 
 A parser that converts [SJSON](http://help.autodesk.com/view/Stingray/ENU/?guid=__stingray_help_managing_content_sjson_html) into JSON.
+
+[![Build Status](https://travis-ci.org/Autodesk/sjson.svg?branch=master)](https://travis-ci.org/Autodesk/sjson)
 
 ## Installation
 
