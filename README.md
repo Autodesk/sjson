@@ -109,3 +109,7 @@ fs.readFile('sample.sjson', 'utf8', function (err, data) {
   }
 }
 ```
+
+## Featured In
+
+* [Autodesk&reg; Stingray&reg;](http://stingrayengine.com/) uses SJSON to express data in many of it's text-based resource files.
