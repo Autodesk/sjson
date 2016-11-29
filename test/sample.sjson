@@ -25,12 +25,12 @@ object = {
 			otherStr = "Another String"
 		}
 	]
-
 	arr2 = [
 		{
 			str = "String Value"
 		}
 	]
+	float = 0.5
 }
 
 // Array

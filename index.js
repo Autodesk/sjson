@@ -79,12 +79,13 @@ class SJSON {
 
     const pnumber = () => {
       ws();
-      let isFloat = false;
       const start = i;
+      let isFloat = false;
       for (; i < s.length; ++i) {
         const c = s[i];
-        isFloat |= hasChar(NUMBER_EXP, c);
-        if (!isFloat && !hasChar(NUMBER, c))
+        const expc = hasChar(NUMBER_EXP, c);
+        isFloat |= expc;
+        if (!expc && !hasChar(NUMBER, c))
           break;
       }
       const n = s.toString('utf8', start, i);

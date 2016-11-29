@@ -24,7 +24,8 @@
       {
         "str": "String Value"
       }
-    ]
+    ],
+    "float": 0.5
   },
   "platforms": [
     "win64",
