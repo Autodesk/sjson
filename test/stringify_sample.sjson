@@ -1,0 +1,51 @@
+name = "Sample"
+description = "A sample json document."
+version = "0.0.1"
+author = {
+	name = "Autodesk"
+}
+keywords = [
+	"sample"
+	"sjson"
+]
+object = {
+	arr = [
+		{
+			str = "String Value"
+			object = {
+				type = "lua"
+				script = """
+					require "some/resource"
+					local result = Sample:generate()
+					print("Multiline String Sample", result)
+				"""
+			}
+			otherStr = "Another String"
+		}
+		{
+			str = "String Value 2"
+			object = {
+				type = "lua"
+				script = """
+						require "some/resource"
+						local result = Sample:generate()
+						print("Multiline String Sample 2", result)
+					"""
+			}
+			otherStr = "Another String"
+		}
+	]
+	arr2 = [
+		{
+			str = "String Value"
+		}
+	]
+}
+platforms = [
+	"win64"
+	"win32"
+	"linux"
+]
+dependencies = {
+	sjson = "^1.0"
+}
