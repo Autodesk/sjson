@@ -202,6 +202,86 @@ class SJSON {
 
     return proot();
   }
+
+  static stringify(rootObj) {
+    let nbTabs = 0;
+
+    const endLine = () => {
+      let v = '\n';
+      let i = 0;
+      for(i; i < nbTabs; i++) {
+        v += '\t'
+      }
+      return v;
+    }
+
+    const sstring = s => {
+      if(s.match(/\r|\n/)) {
+        return '"""' + s + '"""';
+      }
+      return '"' + s + '"';
+    };
+
+    const snumber = n => {
+      return '' + n;
+    };
+
+    const sbool = b => {
+      return b ? 'true' : 'false';
+    };
+
+    const sarray = arr => {
+      let s = '[';
+      let k;
+      nbTabs++; //indentation
+      for(k in arr) {
+        s += endLine() + svalue(arr[k]);
+      }
+      nbTabs--; //end indentation
+      return s + endLine() + ']';
+    }
+
+    const sobj = obj => {
+      let s = '{';
+      let k;
+      nbTabs++; //indentation
+      for(k in obj) {
+        s += endLine() + k + ' = ' + svalue(obj[k]);
+      }
+      nbTabs--; //end indentation
+      return s + endLine() + '}';
+    };
+
+    const svalue = v => {
+      switch(typeof v) {
+        case 'object':
+          if(Array.isArray(v)) {
+            return sarray(v);
+          }
+          return sobj(v);
+        case 'number':
+          return snumber(v);
+        case 'boolean':
+          return sbool(v);
+        case 'string':
+          return sstring(v);
+      }
+    }
+
+    const sroot = r => {
+      //If the root is an object loop through key here to not add '{ }' and indentation
+      if(typeof r === 'object' && !Array.isArray(r)) {
+        let s = '';
+        let k;
+        for(k in r) {
+          s += k + ' = ' + svalue(r[k]) + endLine();
+        }
+        return s;
+      }
+      return svalue(r);
+    };
+    return sroot(rootObj);
+  }
 }
 
-module.exports = SJSON.parse;
+module.exports = SJSON;
