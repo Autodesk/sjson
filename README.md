@@ -12,6 +12,16 @@ npm install --save simplified-json
 
 ## Usage
 
+#### [sample.sjson](./test/sample.sjson)
+
+```
+description = "A sample, json document."
+author = {
+ 	name = "Autodesk"
+}
+keywords = ["sample", "sjson"]
+```
+
 ### parse
 
 Parse a sjson string and return a javascript object
