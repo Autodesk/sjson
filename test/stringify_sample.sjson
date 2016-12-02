@@ -40,6 +40,8 @@ object = {
 			str = "String Value"
 		}
 	]
+	"key with space" = true
+	"key=with=equal" = true
 }
 platforms = [
 	"win64"

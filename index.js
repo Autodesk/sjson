@@ -242,14 +242,16 @@ class SJSON {
       return s + endLine() + ']';
     }
 
+    function getObjKey(k) {
+      return k.match(/\s|=/) ? '"' + k + '"' : k;
+    }
+
     function sobj(obj) {
       let s = '{';
       let k;
-      let kString;
       nbTabs++; //indentation
       for(k in obj) {
-        kString = k.match(/\s|=/) ? '"' + k + '"' : k;
-        s += endLine() + kString + ' = ' + svalue(obj[k]);
+        s += endLine() + getObjKey(k) + ' = ' + svalue(obj[k]);
       }
       nbTabs--; //end indentation
       return s + endLine() + '}';
@@ -277,7 +279,7 @@ class SJSON {
         let s = '';
         let k;
         for(k in r) {
-          s += k + ' = ' + svalue(r[k]) + endLine();
+          s += getObjKey(k) + ' = ' + svalue(r[k]) + endLine();
         }
         return s;
       }

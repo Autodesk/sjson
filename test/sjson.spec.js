@@ -230,6 +230,23 @@ describe('simplified-json', function () {
     });
   });
 
+  /**
+   * Validate that the SJSON stringify object(s)
+   */
+  it('should add double quote on object key if it contain an = character', function () {
+    const input = {'a=b': true, b: 'B', c: {'1=2': true}};
+    const expectedResult = '"a=b" = true\nb = "B"\nc = {\n\t"1=2" = true\n}\n';
+    const result = SJSON.stringify(input);
+    expect(result).to.equal(expectedResult);
+  });
+
+  it('should add double quote on object key if it contain space', function () {
+    const input = {'a b': true, b: 'B', c: {'1 2': true}};
+    const expectedResult = '"a b" = true\nb = "B"\nc = {\n\t"1 2" = true\n}\n';
+    const result = SJSON.stringify(input);
+    expect(result).to.equal(expectedResult);
+  });
+
   it('should be able to go back and forth between json and sjson', function () {
     return getSJSONSample('stringify_sample.sjson').then(data => {
       //ignore line ending just use unix for comparison.
