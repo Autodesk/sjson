@@ -34,7 +34,7 @@ class SJSON {
     let i = 0;
     if(typeof s === 'string') s = Buffer(s);
 
-    const ws = () => {
+    function ws() {
       while (i < s.length) {
         if (s[i] === 47) { // "/"
           ++i;
@@ -47,24 +47,24 @@ class SJSON {
         }
         ++i;
       }
-    };
+    }
 
-    const consume = c => {
+    function consume(c) {
       ws();
       if (s[i++] !== c)
         throw parseError(s, i-1, String.fromCharCode(c));
-    };
+    }
 
-    const consumeKeyword = kw => {
+    function consumeKeyword(kw) {
       ws();
       const chars = Buffer(kw);
       for (let c of chars) {
         if (s[i++] !== c)
           throw parseError(s, i-1, String.fromCharCode(c));
       }
-    };
+    }
 
-    const pvalue = () => {
+    function pvalue() {
       ws();
       const c = s[i];
       if (hasChar(NUMBER, c)) return pnumber();
@@ -75,9 +75,9 @@ class SJSON {
       if (c === 102)  { consumeKeyword("false"); return false; }
       if (c === 110)  { consumeKeyword("null"); return null; }
       throw parseError(s, i, "number, {, [, \", true, false or null");
-    };
+    }
 
-    const pnumber = () => {
+    function pnumber() {
       ws();
       const start = i;
       let isFloat = false;
@@ -90,9 +90,9 @@ class SJSON {
       }
       const n = s.toString('utf8', start, i);
       return isFloat ? parseFloat(n) : parseInt(n);
-    };
+    }
 
-    const pstring = () => {
+    function pstring() {
       // Literal string
       if (s[i] === 34 && s[i+1] === 34 && s[i+2] === 34) {
         i += 3;
@@ -139,9 +139,9 @@ class SJSON {
       }
       consume(34);
       return Buffer(octets).toString('utf8');
-    };
+    }
 
-    const parray = () => {
+    function parray() {
       const ar = [];
       ws();
       consume(91); // "["
@@ -151,9 +151,9 @@ class SJSON {
 
       consume(93);
       return ar;
-    };
+    }
 
-    const pidentifier = () => {
+    function pidentifier() {
       ws();
       if(i === s.length)  // Catch whitespace EOF
         return null;
@@ -163,9 +163,9 @@ class SJSON {
       const start = i;
       for (; !hasChar(ID_TERM, s[i]); ++i);
       return s.toString("utf8", start, i);
-    };
+    }
 
-    const pobject = () => {
+    function pobject() {
       const object = Object.setPrototypeOf({},  null);
       consume(123); // "{"
       ws();
@@ -177,9 +177,9 @@ class SJSON {
       }
       consume(125); // "}"
       return object;
-    };
+    }
 
-    const proot = () => {
+    function proot() {
       ws();
       if (s[i] === 123)
         return pobject();
@@ -199,7 +199,7 @@ class SJSON {
         throw parseError(s, i, "end-of-string");
 
       return object;
-    };
+    }
 
     return proot();
   }
@@ -216,22 +216,22 @@ class SJSON {
       return v;
     }
 
-    const sstring = s => {
+    function sstring(s) {
       if(s.match(/\r|\n/)) {
         return '"""' + s + '"""';
       }
       return '"' + s + '"';
-    };
+    }
 
-    const snumber = n => {
+    function snumber(n) {
       return '' + n;
-    };
+    }
 
-    const sbool = b => {
+    function sbool(b) {
       return b ? 'true' : 'false';
-    };
+    }
 
-    const sarray = arr => {
+    function sarray(arr) {
       let s = '[';
       let k;
       nbTabs++; //indentation
@@ -242,18 +242,20 @@ class SJSON {
       return s + endLine() + ']';
     }
 
-    const sobj = obj => {
+    function sobj(obj) {
       let s = '{';
       let k;
+      let kString;
       nbTabs++; //indentation
       for(k in obj) {
-        s += endLine() + k + ' = ' + svalue(obj[k]);
+        kString = k.match(/\s|=/) ? '"' + k + '"' : k;
+        s += endLine() + kString + ' = ' + svalue(obj[k]);
       }
       nbTabs--; //end indentation
       return s + endLine() + '}';
-    };
+    }
 
-    const svalue = v => {
+    function svalue(v) {
       switch(typeof v) {
         case 'object':
           if(Array.isArray(v)) {
@@ -269,7 +271,7 @@ class SJSON {
       }
     }
 
-    const sroot = r => {
+    function sroot(r) {
       //If the root is an object loop through key here to not add '{ }' and indentation
       if(typeof r === 'object' && !Array.isArray(r)) {
         let s = '';
@@ -280,7 +282,7 @@ class SJSON {
         return s;
       }
       return svalue(r);
-    };
+    }
     return sroot(rootObj);
   }
 }
