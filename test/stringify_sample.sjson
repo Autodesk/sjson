@@ -1,15 +1,13 @@
-// About
-//
 name = "Sample"
 description = "A sample json document."
 version = "0.0.1"
 author = {
 	name = "Autodesk"
 }
-keywords = ["sample", "sjson"]
-
-// SJSON Object
-//
+keywords = [
+	"sample"
+	"sjson"
+]
 object = {
 	arr = [
 		{
@@ -24,18 +22,33 @@ object = {
 			}
 			otherStr = "Another String"
 		}
+		{
+			str = "String Value 2"
+			object = {
+				type = "lua"
+				script = """
+						require "some/resource"
+						local result = Sample:generate()
+						print("Multiline String Sample 2", result)
+					"""
+			}
+			otherStr = "Another String"
+		}
 	]
 	arr2 = [
 		{
 			str = "String Value"
 		}
 	]
-	float = 0.5
+	"key with space" = true
+	"key=with=equal" = true
+	"value with \"" = "33' - 11 251/256\""
 }
-
-// Array
-//
-platforms = ["win64", "win32", "linux"]
+platforms = [
+	"win64"
+	"win32"
+	"linux"
+]
 dependencies = {
-	"sjson" = "^1.0"
+	sjson = "^1.0"
 }
