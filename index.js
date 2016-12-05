@@ -220,7 +220,7 @@ class SJSON {
       if(s.match(/\r|\n/)) {
         return '"""' + s + '"""';
       }
-      return '"' + s + '"';
+      return '"' + s.replace(/"/g, '\\"') + '"';
     }
 
     function snumber(n) {
@@ -243,7 +243,7 @@ class SJSON {
     }
 
     function getObjKey(k) {
-      return k.match(/\s|=/) ? '"' + k + '"' : k;
+      return k.match(/\s|=/) ? sstring(k) : k;
     }
 
     function sobj(obj) {

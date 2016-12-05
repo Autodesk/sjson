@@ -42,6 +42,7 @@ object = {
 	]
 	"key with space" = true
 	"key=with=equal" = true
+	"value with \"" = "33' - 11 251/256\""
 }
 platforms = [
 	"win64"
