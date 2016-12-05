@@ -1,2 +1,0 @@
-# Preserve CRLF for multi-line testing comparison
-/test/sample.sjson text eol=crlf

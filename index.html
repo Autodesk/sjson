@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Interactive SJSON Parser Demo">
+    <meta name="author" content="Autodesk Inc.">
+
+    <!-- DNS Prefetch external resources: -->
+    <link rel="dns-prefetch" href="https://bootswatch.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <title>Interactive SJSON Parser Demo</title>
+
+    <link rel="stylesheet" href="https://bootswatch.com/lumen/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/assets/css/custom.min.css">
+
+    <style type="text/css">
+      body {
+        padding-top: 50px; /* Move down content because of the fixed navbar that is 50px high. */
+        padding-bottom: 20px;
+      }
+      #sjson-input, #json-output {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="https://github.com/Autodesk/sjson">Simplified JSON Parser</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Interactive SJSON Parser</h1>
+        <p>Try out the Simplified JSON Parser features with this interactive demo.</p>
+        <p>
+          <a class="btn btn-primary btn-lg" href="https://github.com/Autodesk/sjson#readme" role="button">Learn more &raquo;</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <h3>SJSON Input</h3>
+          <textarea class="form-control" rows="20" id="sjson-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">// About
+//
+name = "Sample"
+description = "A sample json document."
+version = "0.0.1"
+author = {
+    name = "Autodesk"
+}
+keywords = ["sample", "sjson"]
+
+// SJSON Object
+//
+object = {
+    arr = [
+        {
+            str = "String Value"
+            object = {
+                type = "lua"
+                script = """
+                    require "some/resource"
+                    local result = Sample:generate()
+                    print("Multiline String Sample", result)
+                """
+            }
+            otherStr = "Another String"
+        }
+    ]
+
+    arr2 = [
+        {
+            str = "String Value"
+        }
+    ]
+}
+
+// Array
+//
+platforms = ["win64", "win32", "linux"]
+dependencies = {
+    "sjson" = "^1.0"
+}</textarea>
+        </div>
+
+        <div class="col-sm-6">
+          <h3>JSON Output</h3>
+          <textarea readonly class="form-control" rows="20" id="json-output" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-warning hidden" id="syntax-error">
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>Heads up!</strong> There was an error parsing your SJSON.</h3>
+            </div>
+            <div class="panel-body"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <script async defer type="text/javascript" src="bundle.min.js"></script>
+  </body>
+</html>
