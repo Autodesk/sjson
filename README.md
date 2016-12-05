@@ -38,7 +38,7 @@ fs.readFile('sample.sjson', 'utf8', function (err, data) {
 });
 ```
 
-### stingify
+### stringify
 
 Parse a javascript object and return a sjson string
 
