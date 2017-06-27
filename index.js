@@ -217,10 +217,44 @@ class SJSON {
     };
 
     function sstring(s) {
-      if(s.match(/\r|\n/)) {
+      if (s.match(/\r|\n/)) {
         return '"""' + s + '"""';
       }
-      return '"' + s.replace(/"/g, '\\"') + '"';
+      else {
+        let r = "";
+        for (const symbol of s) {
+          switch (symbol) {
+            case '"':
+              r += '\\"';
+              break;
+            case '\\':
+              r += '\\\\';
+              break;
+            case '/':
+              r += '\/';
+              break;
+            case '\b':
+              r += '\\b';
+              break;
+            case '\f':
+              r += '\\f';
+              break;
+            case '\n':
+              r += '\\n';
+              break;
+            case '\r':
+              r += '\\r';
+              break;
+            case '\t':
+              r += '\\t';
+              break;
+            default:
+              r += symbol;
+              break;
+          }
+        }
+        return '"' + r + '"';
+      }
     }
 
     function snumber(n) {

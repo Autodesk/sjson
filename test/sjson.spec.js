@@ -175,6 +175,13 @@ describe('simplified-json', function () {
       expect(result).to.equal(expectedResult);
     });
 
+    it('should stringify a single-line string with proper escaping according to the JSON spec', function() {
+      const input = "\u03B8\b\t\\\"//\\//ñëiø☃\\\\\fâônàæ";
+      const expectedResult = JSON.stringify(input);
+      const result = SJSON.stringify(input);
+      expect(result).to.equal(expectedResult);
+    });
+
     /**
      * Validate that the SJSON stringify number(s)
      */
