@@ -211,10 +211,10 @@ class SJSON {
       let v = '\n';
       let i = 0;
       for(i; i < nbTabs; i++) {
-        v += '\t'
+        v += '\t';
       }
       return v;
-    }
+    };
 
     function sstring(s) {
       if(s.match(/\r|\n/)) {
