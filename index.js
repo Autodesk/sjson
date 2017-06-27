@@ -121,7 +121,7 @@ class SJSON {
       for (; s[i] !== 34; ++i) { // unescaped "
         if (s[i] === 92) {
           ++i;
-          if (s[i] == 98) octets.push(7); // \b
+          if (s[i] == 98) octets.push(8); // \b
           else if (s[i] == 102) octets.push(12); // \f
           else if (s[i] == 110) octets.push(10); // \n
           else if (s[i] == 114) octets.push(13); // \r
