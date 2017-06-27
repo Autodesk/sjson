@@ -121,7 +121,7 @@ class SJSON {
       for (; s[i] !== 34; ++i) { // unescaped "
         if (s[i] === 92) {
           ++i;
-          if (s[i] == 98) octets.push(7); // \b
+          if (s[i] == 98) octets.push(8); // \b
           else if (s[i] == 102) octets.push(12); // \f
           else if (s[i] == 110) octets.push(10); // \n
           else if (s[i] == 114) octets.push(13); // \r
@@ -211,16 +211,50 @@ class SJSON {
       let v = '\n';
       let i = 0;
       for(i; i < nbTabs; i++) {
-        v += '\t'
+        v += '\t';
       }
       return v;
-    }
+    };
 
     function sstring(s) {
-      if(s.match(/\r|\n/)) {
+      if (s.match(/\r|\n/)) {
         return '"""' + s + '"""';
       }
-      return '"' + s.replace(/"/g, '\\"') + '"';
+      else {
+        let r = "";
+        for (const symbol of s) {
+          switch (symbol) {
+            case '"':
+              r += '\\"';
+              break;
+            case '\\':
+              r += '\\\\';
+              break;
+            case '/':
+              r += '\/';
+              break;
+            case '\b':
+              r += '\\b';
+              break;
+            case '\f':
+              r += '\\f';
+              break;
+            case '\n':
+              r += '\\n';
+              break;
+            case '\r':
+              r += '\\r';
+              break;
+            case '\t':
+              r += '\\t';
+              break;
+            default:
+              r += symbol;
+              break;
+          }
+        }
+        return '"' + r + '"';
+      }
     }
 
     function snumber(n) {
