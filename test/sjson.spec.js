@@ -143,6 +143,16 @@ describe('simplified-json', function () {
     });
 
     /**
+     * Validate that the SJSON Parser correctly parses keys with a leading solidus.
+     */
+    it('parses keys with a leading solidus', function () {
+      const parsedSJSON = SJSON.parse('/key_with_a_leading_solidus = true');
+
+      expect(parsedSJSON["/key_with_a_leading_solidus"]).to.be.a('Boolean');
+      expect(parsedSJSON["/key_with_a_leading_solidus"]).to.be.true;
+    });
+
+    /**
      * Validate that the SJSON Parser throws a SyntaxError when encountering an
      * unexpected token.
      */

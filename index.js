@@ -37,11 +37,27 @@ class SJSON {
     function ws() {
       while (i < s.length) {
         if (s[i] === 47) { // "/"
+          const start = i;
           ++i;
-          if (s[i] === 47)
+          if (s[i] === 47) // "/"
             while (s[++i] !== 10); // "\n"
-          else if (s[i] === 42) // "*"
-            while (s[++i] !== 42);
+          else if (s[i] === 42) { // "*"
+            while (s[++i] !== 42); // "*"
+            if (s[i] === 47) { // "/"
+              i++;
+              break;
+            }
+            // No multi-line comment
+            else {
+              i = start;
+              break;
+            }
+          }
+          // No single-line comment
+          else {
+             i = start;
+             break;
+          }
         } else if (!hasChar(WHITESPACE, s[i])) {
           break;
         }
