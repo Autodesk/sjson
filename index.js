@@ -37,11 +37,27 @@ class SJSON {
     function ws() {
       while (i < s.length) {
         if (s[i] === 47) { // "/"
+          const start = i;
           ++i;
-          if (s[i] === 47)
-            while (s[++i] !== 10); // "\n"
-          else if (s[i] === 42) // "*"
-            while (s[++i] !== 42);
+          if (s[i] === 47) // "/"
+            while (++i < s.length && s[i] !== 10); // "\n"
+          else if (s[i] === 42) { // "*"
+            while (++i < s.length && s[i] !== 42); // "*"
+            if (s[i] === 47) { // "/"
+              i++;
+              break;
+            }
+            // No multi-line comment
+            else {
+              i = start;
+              break;
+            }
+          }
+          // No single-line comment
+          else {
+             i = start;
+             break;
+          }
         } else if (!hasChar(WHITESPACE, s[i])) {
           break;
         }
@@ -97,7 +113,7 @@ class SJSON {
       if (s[i] === 34 && s[i+1] === 34 && s[i+2] === 34) {
         i += 3;
         const start = i;
-        for (; s[i] !== 34 || s[i+1] !== 34 || s[i+2] !== 34; ++i);
+        for (; i+2 < s.length && (s[i] !== 34 || s[i+1] !== 34 || s[i+2] !== 34); ++i);
         i += 3;
         return s.toString('utf8', start, i-3);
       }
@@ -105,7 +121,7 @@ class SJSON {
       const start = i;
       let escape = false;
       consume(34);
-      for (; s[i] !== 34; ++i) { // unescaped "
+      for (; i < s.length && s[i] !== 34; ++i) { // unescaped "
         if (s[i] === 92) {
           ++i;
           escape = true;
@@ -118,7 +134,7 @@ class SJSON {
       i = start;
       var octets = [];
       consume(34);
-      for (; s[i] !== 34; ++i) { // unescaped "
+      for (; i < s.length && s[i] !== 34; ++i) { // unescaped "
         if (s[i] === 92) {
           ++i;
           if (s[i] == 98) octets.push(8); // \b
@@ -146,7 +162,7 @@ class SJSON {
       ws();
       consume(91); // "["
       ws();
-      for (; s[i] !== 93; ws()) // "]"
+      for (; i < s.length && s[i] !== 93; ws()) // "]"
         ar.push(pvalue());
 
       consume(93);
@@ -161,7 +177,7 @@ class SJSON {
         return pstring();
 
       const start = i;
-      for (; !hasChar(ID_TERM, s[i]); ++i);
+      for (; i < s.length && !hasChar(ID_TERM, s[i]); ++i);
       return s.toString("utf8", start, i);
     }
 
@@ -169,7 +185,7 @@ class SJSON {
       const object = Object.setPrototypeOf({},  null);
       consume(123); // "{"
       ws();
-      for (; s[i] !== 125; ws()) { // "}"
+      for (; i < s.length && s[i] !== 125; ws()) { // "}"
         const key = pidentifier();
         ws();
         (s[i] === 58) ? consume(58) : consume(61); // ":" or "="
